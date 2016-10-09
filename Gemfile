@@ -48,6 +48,12 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+group :test do
+	gem "rspec-rails", "~> 2.14" 
+	gem "factory_girl_rails"
+	gem 'ffaker'
+end
+
 #Api gems
 gem 'active_model_serializers'
 
