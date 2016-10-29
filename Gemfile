@@ -49,9 +49,15 @@ group :development do
 end
 
 group :test do
-	gem "rspec-rails", "~> 2.14" 
+	gem "rspec-rails", "~> 3.0", require: false
 	gem "factory_girl_rails"
 	gem 'ffaker'
+end
+
+group :test do
+	gem 'shoulda-matchers'
+    #gem 'shoulda', "~> 3.5.0"
+	gem 'test-unit', '~> 3.2'
 end
 
 #Api gems
