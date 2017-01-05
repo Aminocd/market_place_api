@@ -8,7 +8,7 @@ gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 5.0.6'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -49,7 +49,7 @@ group :development do
 end
 
 group :test do
-	gem "rspec-rails", "~> 3.0", require: false
+	gem "rspec-rails", "~> 3.5.2", require: false
 	gem "factory_girl_rails"
 	gem 'ffaker'
 end
@@ -67,3 +67,11 @@ gem 'active_model_serializers'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "devise"
+
+gem 'sabisu_rails', github: "jvrsgsty/sabisu-rails"
+gem 'compass-rails', '~> 3.0.2'
+gem 'furatto'
+gem 'font-awesome-rails'
+gem 'simple_form'
+gem 'railties'
+gem 'rack', "~> 2.0"
