@@ -13,8 +13,6 @@ describe Api::V1::SessionsController do
       before(:each) do
         credential_params = { email: @user.email, password: "12345678" }
 		session_params = { session: credential_params }
-		puts "these are the params from spec"
-		p session_params
         post :create, session_params
       end
 
@@ -39,5 +37,18 @@ describe Api::V1::SessionsController do
 
       it { should respond_with 422 }
     end
+  end
+
+
+  describe "DELETE #destroy" do
+
+	before(:each) do 
+	  @user = FactoryGirl.create :user
+	  sign_in @user #, store: false
+      delete :destroy, id: @user.auth_token
+	end
+
+	it { should respond_with 204 }
+
   end
 end
