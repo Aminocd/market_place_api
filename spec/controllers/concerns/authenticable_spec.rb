@@ -4,7 +4,7 @@ class Authentication
 	include Authenticable
 end
 
-describe Authenticable, :type => :controller do
+describe Authenticable do
 	let(:authentication) { Authentication.new }
 	subject { authentication }
 
@@ -23,8 +23,7 @@ describe Authenticable, :type => :controller do
 		before do
 			@user = FactoryGirl.create :user
 =begin
-			request.headers['Authorization'] = "incorrect token" 
-			authentication.authenticate_with_token!
+			authentication.current_user
 =end
 			
 			authentication.stub(:current_user).and_return(nil)
@@ -38,5 +37,25 @@ describe Authenticable, :type => :controller do
 		end
 
 		it { should respond_with 401 }
+	end
+
+	describe "#user_signed_in?" do
+		context "when there is a user on 'session'" do
+			before do
+				@user = FactoryGirl.create :user
+				authentication.stub(:current_user).and_return(@user)
+			end
+
+		it { should be_user_signed_in }	
+		end
+	
+		context "when there is no user 'session'" do
+			before do
+				@user = FactoryGirl.create :user
+				authentication.stub(:current_user).and_return(nil)
+			end
+
+		it { should_not be_user_signed_in }
+		end
 	end
 end
