@@ -4,14 +4,14 @@ class Authentication
 	include Authenticable
 end
 
-describe Authenticable do
+describe Authenticable, :type => :controller do
 	let(:authentication) { Authentication.new }
 	subject { authentication }
 
 	describe "#current_user" do
 		before do
 			@user = FactoryGirl.create :user
-			request.headers["Authorization"] = @user.auth_token
+			request.headers['Authorization'] = @user.auth_token
 			authentication.stub(:request).and_return(request)
 		end
 		it "returns the user from the authorization header" do
@@ -19,9 +19,14 @@ describe Authenticable do
 		end
 	end
 
-	describe "#authenticate_with_token" do
+	describe "#authenticate_with_token!" do
 		before do
 			@user = FactoryGirl.create :user
+=begin
+			request.headers['Authorization'] = "incorrect token" 
+			authentication.authenticate_with_token!
+=end
+			
 			authentication.stub(:current_user).and_return(nil)
 			response.stub(:response_code).and_return(401)
 			response.stub(:body).and_return({"errors" => "Not authenticated"}.to_json)
