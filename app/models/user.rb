@@ -14,4 +14,6 @@ class User < ApplicationRecord
   end
 
   before_create :generate_authentication_token!
+ 
+  has_many :products
 end
