@@ -50,6 +50,9 @@ end
 
 group :test do
 	gem "rspec-rails", "~> 3.5.2", require: false
+end
+
+group :development, :test do
 	gem "factory_girl_rails"
 	gem 'ffaker'
 end
