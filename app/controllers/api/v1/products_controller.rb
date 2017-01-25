@@ -3,11 +3,11 @@ class Api::V1::ProductsController < ApplicationController
 	respond_to :json
 
 	def show
-		respond_with Product.find(params[:id])
+		respond_with Product.find(params[:id]), include: :user, fields: { user: [:email, :created_at, :updated_at]}
 	end
 
 	def index
-		respond_with Product.all
+		respond_with Product.all, include: :user, fields: { user: [:email, :created_at, :updated_at]}
 	end
 
 	def create
