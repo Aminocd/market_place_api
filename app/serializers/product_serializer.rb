@@ -1,3 +1,4 @@
 class ProductSerializer < ActiveModel::Serializer
-  attributes :id, :title, :price, :published
+  attributes :title, :price, :published
+  has_one :user, include: :email
 end

@@ -11,20 +11,43 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 			product_response = json_response[:data][:attributes]
 			expect(product_response[:title]).to eql @product.title
 		end
+
+		it "has the user as an embedded object" do
+			user_response = json_response[:included][0][:attributes]
+			expect(user_response[:email]).to eql @product.user.email
+		end
 	
 		it { should respond_with 200 }
 	end
 
 	describe "GET #index" do
 		before(:each) do
+			@products_array = []
 			@count = 4
-			@count.times { FactoryGirl.create :product }
+			@count.times { @products_array.push(FactoryGirl.create :product) }
 			get :index
 		end
 
 		it "returns 4 records from the database" do
 			products_response = json_response[:data]
 			expect(products_response.length).to eql @count
+		end
+
+		it "returns the product's relationship to the user object" do
+			products_response = json_response[:data]
+			products_response.each do |product_response| 	
+				expect(product_response[:relationships][:user]).to be_present 
+			end
+		end
+
+		it "returns the user object inside each product" do
+			@i = 0
+			products_response = json_response[:data]
+			users_response = json_response[:included]
+			users_response.each do |user_response|
+				expect(user_response[:attributes][:email]).to eql @products_array[@i].user.email
+				@i += 1
+			end
 		end
 	
 		it { should respond_with 200}
