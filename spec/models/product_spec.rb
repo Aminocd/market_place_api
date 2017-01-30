@@ -17,4 +17,55 @@ describe Product do
 	it { should validate_presence_of :user_id }
 
 	it { should belong_to :user }
+
+	describe ".filter_by_title" do
+		before(:each) do	
+			@product1 = FactoryGirl.create :product, title: "A plasma TV"
+			@product2 = FactoryGirl.create :product, title: "laptop"
+			@product3 = FactoryGirl.create :product, title: "tablet"
+			@product4 = FactoryGirl.create :product, title: "LCD TV"
+		end
+
+		context "when a 'TV' title pattern is sent" do	
+			it "returns 2 items" do
+				expect(Product.filter_by_title("TV").length).to eq 2
+			end
+
+			it "returns an array of items pattern @product1 and @product2" do
+				expect(Product.filter_by_title("TV").sort).to match_array([@product1, @product4]) 
+			end
+		end
+	end
+
+	describe "filter by price and sort by update time" do
+		before(:each) do
+			@product1 = FactoryGirl.create :product, price: 100
+			@product2 = FactoryGirl.create :product, price: 50
+			@product3 = FactoryGirl.create :product, price: 110
+			@product4 = FactoryGirl.create :product, price: 90
+		end
+
+		context ".above_or_equal_to_price" do	
+			it "returns products with a price greater than or equal to the value given as an argument" do
+				expect(Product.above_or_equal_to_price(100).sort).to match_array([@product1, @product3])
+			end
+		end
+
+		context ".below_or_equal_to_price" do
+			it "returns products with a price less than or equal to the value given as an argument" do	
+				expect(Product.below_or_equal_to_price(99).sort).to match_array([@product2, @product4])
+			end	
+		end
+
+		context "sorted by last update" do
+			before(:each) do
+				@product2.touch
+				@product3.touch
+			end
+
+			it "lists the products touched first" do
+				expect(Product.recent).to match_array([@product3, @product2, @product4, @product1])
+			end
+		end
+	end
 end
