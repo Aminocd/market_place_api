@@ -68,4 +68,42 @@ describe Product do
 			end
 		end
 	end
+	
+	describe ".search" do
+		before(:each) do
+			@product1 = FactoryGirl.create :product, price: 100, title: "Plasma TV"
+			@product2 = FactoryGirl.create :product, price: 50, title: "Videogame console"
+			@product3 = FactoryGirl.create :product, price: 150, title: "MP3"
+			@product4 = FactoryGirl.create :product, price: 99, title: "Laptop"
+		end
+
+		context "when title 'videogame' and min price '100' are set" do
+			it "returns an empty array" do
+				search_hash = { keyword: "videogame", min_price: 100}	
+				expect(Product.search(search_hash)).to be_empty
+			end	
+		end
+
+		context "when title 'tv', max price '150' and min price '50' are set" do
+			it "returns product1" do
+				search_hash = { keyword: "tv", min_price: 50, max_price: 150 }
+				expect(Product.search(search_hash)).to match_array([@product1])
+			end
+		end
+
+		context "when an empty hash is sent" do
+			it "returns all the products" do
+				search_hash = {}
+				expect(Product.search(search_hash)).to match_array([@product1, @product2, @product3, @product4])
+			end
+		end
+
+		context "when product_ids is present" do
+			it "returns the product from the ids" do
+				search_hash = { product_ids: [@product1.id, @product2.id] }
+				expect(Product.search(search_hash)).to match_array([@product1, @product2])
+			end
+		end
+	end
 end
+

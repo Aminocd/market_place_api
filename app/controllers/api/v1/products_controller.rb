@@ -7,7 +7,7 @@ class Api::V1::ProductsController < ApplicationController
 	end
 
 	def index
-		products = params[:product_ids].present? ? Product.find(params[:product_ids]) : Product.all
+		products = Product.search(params)
 		respond_with products, include: :user, fields: { user: [:email, :created_at, :updated_at]}	
 	end
 
