@@ -3,7 +3,7 @@ class Api::V1::UsersController < ApplicationController
 	# For APIs, you may want to use :null_session instead
 	protect_from_forgery with: :null_session
 
-	before_action :authenticate_with_token!, only: [:update, :destroy]
+	before_action :authorize_with_token!, only: [:update, :destroy] 
 	respond_to :json
 
 	def show
@@ -34,7 +34,7 @@ class Api::V1::UsersController < ApplicationController
 		head 204
 	end
 
-	private
+	#private
 		def user_params
 			params.require(:user).permit(:email, :password, :password_confirmation)
 		end
