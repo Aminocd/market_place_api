@@ -1,5 +1,7 @@
 class Api::V1::ProductsController < ApplicationController
-	before_action :authenticate_with_token!, only: [:create, :update]
+	before_action only: [:create, :update] do
+		authorize_with_token!(:user_id)
+	end
 	respond_to :json
 
 	def show
