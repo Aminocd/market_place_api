@@ -11,7 +11,7 @@ class Api::V1::OrdersController < ApplicationController
 	end
 
 	def show
-		respond_with current_user.orders.find(params[:id])
+		respond_with current_user.orders.find(params[:id])#, include: :products, fields: { products: [:title, :price, :published] }
 	end
 
 	def create
