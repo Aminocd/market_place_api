@@ -3,4 +3,5 @@ class OrderSerializer < ActiveModel::Serializer
 
   belongs_to :user
   has_many :placements
+  has_many :products #, serializer: OrderProductSerializer
 end
