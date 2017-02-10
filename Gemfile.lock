@@ -52,6 +52,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.5.0)
+      public_suffix (~> 2.0, >= 2.0.2)
     arel (7.1.4)
     bcrypt (3.1.11)
     builder (3.2.2)
@@ -89,6 +91,10 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    email_spec (2.1.0)
+      htmlentities (~> 4.3.3)
+      launchy (~> 2.1)
+      mail (~> 2.6.3)
     erubis (2.7.0)
     execjs (2.7.0)
     factory_girl (4.7.0)
@@ -106,6 +112,7 @@ GEM
       railties (>= 3.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    htmlentities (4.3.4)
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
@@ -121,6 +128,8 @@ GEM
       jsonapi-renderer (= 0.1.1.beta1)
     jsonapi-parser (0.1.1.beta3)
     jsonapi-renderer (0.1.1.beta1)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -141,6 +150,7 @@ GEM
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
     power_assert (0.3.1)
+    public_suffix (2.0.5)
     puma (3.6.0)
     rack (2.0.1)
     rack-test (0.6.3)
@@ -248,6 +258,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   compass-rails (~> 3.0.2)
   devise
+  email_spec
   factory_girl_rails
   ffaker
   font-awesome-rails
