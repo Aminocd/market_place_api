@@ -50,6 +50,7 @@ end
 
 group :test do
 	gem "rspec-rails", "~> 3.5.2", require: false
+	gem "email_spec"
 end
 
 group :development, :test do
