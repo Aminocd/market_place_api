@@ -15,4 +15,26 @@ RSpec.describe Order, type: :model do
 
 	it { should have_many(:placements) }
 	it { should have_many(:products).through(:placements) }
+
+	describe "#build_placements_with_product_ids_and_quantities" do
+	end
+
+	describe "valid?" do
+		before(:each) do	
+			product1 = FactoryGirl.create :product, price: 85, quantity: 5
+			product2 = FactoryGirl.create :product, price: 100, quantity: 10
+
+			placement1 = FactoryGirl.create :placement, product: product1, quantity: 3
+			placement2 = FactoryGirl.create :placement, product: product2, quantity: 15
+
+			@order = FactoryGirl.create :order
+
+			@order.placements << placement1
+			@order.placements << placement2
+		end
+
+		it "should not be valid" do
+			expect(@order).to_not be_valid
+		end	
+	end
 end
