@@ -87,10 +87,11 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
 			@product2 = FactoryGirl.create :product, price: 85, quantity: 10
 
 			@product_ids_and_quantities = [[@product1.id, 2], [@product2.id, 3]]
+			@order = FactoryGirl.create :order
 		end
 
 		it "builds 2 placements for the order" do
-			expect{order.build_placements_with_product_ids_and_quantities(@product_ids_and_quantities)}.to change{order.placements.size}.from(0).to(2)
+			expect{@order.build_placements_with_product_ids_and_quantities(@product_ids_and_quantities)}.to change{@order.placements.size}.from(0).to(2)
 		end
 	end
 end
