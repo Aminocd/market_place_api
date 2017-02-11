@@ -74,7 +74,7 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
 			product2 = FactoryGirl.create :product, price: 100		
 			
 			@order = FactoryGirl.build :order
-			@order.build_placements_with_product_ids_and_quantities([[@product1.id, 3], [@product2.id, 15]]
+			@order.build_placements_with_product_ids_and_quantities([[product1.id, 3], [product2.id, 15]])
 		end
 
 		it "returns the total amount to pay for the products" do
