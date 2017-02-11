@@ -12,7 +12,9 @@ class Order < ApplicationRecord
   validates_with EnoughProductsValidator
 
   def set_total!
-	self.total = products.map(&:price).sum
+	placements.each do |placement| 
+	  self.total += placement.product.price * placement.quantity 
+	end	
   end
 
   def build_placements_with_product_ids_and_quantities(product_ids_and_quantities) 
