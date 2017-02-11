@@ -12,6 +12,7 @@ class Order < ApplicationRecord
   validates_with EnoughProductsValidator
 
   def set_total!
+	self.total = 0
 	placements.each do |placement| 
 	  self.total += placement.product.price * placement.quantity 
 	end	
