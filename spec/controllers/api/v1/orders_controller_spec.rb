@@ -68,13 +68,18 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
 		it { should respond_with 201 }
 	end
 
-	describe "set_total!" do
+	describe "#set_total!" do
 		before(:each) do
 			product1 = FactoryGirl.create :product, price: 85
 			product2 = FactoryGirl.create :product, price: 100		
 			
 			@order = FactoryGirl.build :order
-			@order.build_placements_with_product_ids_and_quantities([[product1.id, 3], [product2.id, 15]])
+			@order.build_placements_with_product_ids_and_quantities([[product1.id, 3], [product2.id, 15]]) # has dependency on #build_placements_with_product_ids_and_quantities
+			# to test method without dependency on #build_placements_with_product_ids_and_quantites, use:
+			# placement_1 = FactoryGirl.build :placement, product: product1, quantity: 3
+			# placement_2 = FactoryGirl.build :placement, product: product2, quantity: 15
+			
+			# @order.placements 
 		end
 
 		it "returns the total amount to pay for the products" do
@@ -93,6 +98,8 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
 
 		it "builds 2 placements for the order" do
 			expect{@order.build_placements_with_product_ids_and_quantities(@product_ids_and_quantities)}.to change{@order.placements.size}.from(0).to(2)
+
+		
 		end
 	end
 end
