@@ -9,8 +9,13 @@ class Api::V1::ProductsController < ApplicationController
 	end
 
 	def index
-		products = Product.search(params)
-		respond_with products, include: :user, fields: { user: [:email, :created_at, :updated_at]}	
+		products = Product.search(params).page(params[:page]).per(params[:per_page])
+		render json: products, include: :user, fields: { user: [:email, :created_at, :updated_at]}, meta: { pagination:  {
+				per_page: params[:per_page],
+				total_pages: products.total_pages.to_s,
+				total_count: products.total_count.to_s
+			}
+		}
 	end
 
 	def create

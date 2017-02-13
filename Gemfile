@@ -79,3 +79,4 @@ gem 'font-awesome-rails'
 gem 'simple_form'
 gem 'railties'
 gem 'rack', "~> 2.0"
+gem 'kaminari'
