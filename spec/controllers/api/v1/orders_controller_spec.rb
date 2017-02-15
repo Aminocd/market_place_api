@@ -17,11 +17,7 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
 		it { should respond_with 200}
 
 		# for pagination
-		it { expect(json_response).to have_key(:"meta")}
-		it { expect(json_response[:meta]).to have_key(:"pagination") }
-		it { expect(json_response[:meta][:pagination]).to have_key(:"per-page") }
-		it { expect(json_response[:meta][:pagination]).to have_key(:"total-count") }
-		it { expect(json_response[:meta][:pagination]).to have_key(:"total-pages") }
+		it_behaves_like "pagination list"	
 	end
 
 	describe "GET #show" do
