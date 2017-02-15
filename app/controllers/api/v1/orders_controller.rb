@@ -7,7 +7,15 @@ class Api::V1::OrdersController < ApplicationController
 	respond_to :json
 
 	def index
-		respond_with current_user.orders
+		orders = current_user.orders.page(params[:page]).per(params[:per_page])
+
+		render json: orders, meta: { 
+								pagination: {
+									per_page: params[:per_page],
+									total_pages: orders.total_pages.to_s,
+									total_count: orders.total_count.to_s 
+								}
+							 }
 	end
 
 	def show
