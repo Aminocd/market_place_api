@@ -66,11 +66,11 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   Shoulda::Matchers.configure do |config|
-	config.integrate do |with|
-	  # Choose a test framework:
-	  with.test_framework :rspec
-	  with.library :rails
-	end
+		config.integrate do |with|
+			# Choose a test framework:
+			with.test_framework :rspec
+			with.library :rails
+		end
   end
 
   # Including to test requests
