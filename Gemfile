@@ -81,3 +81,11 @@ gem 'railties'
 gem 'rack', "~> 2.0"
 gem 'kaminari'
 gem 'delayed_job_active_record'
+
+# adding June 6 2018 to try to add Facebook/Google auth
+gem 'omniauth-facebook'
+
+# adding June 11 2018 with Ben
+gem 'devise_token_auth'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'

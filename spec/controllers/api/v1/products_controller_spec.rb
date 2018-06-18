@@ -130,7 +130,7 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 				patch :update, { user_id: @user.id, id: @product.id, product: { title: "An expensive TV" } }	
 			end
 
-			it "renders the json representation of the updated user" do
+			it "renders the json representation of the updated product" do
 				product_response = json_response[:data][:attributes]
 				expect(product_response[:title]).to eql "An expensive TV"
 			end
@@ -148,7 +148,7 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 				expect(product_response).to have_key(:errors)
 			end
 
-			it "renders the json errors on why the user could not be updated" do
+			it "renders the json errors on why the product could not be updated" do
 				product_response = json_response
 				expect(product_response[:errors][:price]).to include "is not a number"
 			end

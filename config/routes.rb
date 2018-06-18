@@ -2,7 +2,9 @@ require 'api_constraints'
 
 MarketPlaceApi::Application.routes.draw do
   mount SabisuRails::Engine => "/sabisu_rails"
-  devise_for :users
+#  devise_for :users # commented out on June 11 2018 with Ben
+  mount_devise_token_auth_for 'User', at: 'auth'
+
   # Api definition
   namespace :api, defaults: { format: :json },
                               constraints: { subdomain: 'api' }, path: '/'  do

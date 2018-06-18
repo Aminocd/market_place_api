@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
+  include DeviseTokenAuth::Concerns::SetUserByToken
   protect_from_forgery with: :null_session
 
-  include Authenticable
+# include Authenticable
+  include DeviseTokenAuth::Concerns::SetUserByToken
 
   protected
 	def pagination(pagination_array, per_page)
