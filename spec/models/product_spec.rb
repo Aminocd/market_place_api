@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Product do
-	let(:product) { FactoryGirl.build :product }
+	let(:product) { FactoryBot.build :product }
 	subject { product }
 
 	it { should respond_to(:title) }
@@ -22,10 +22,10 @@ describe Product do
 
 	describe ".filter_by_title" do
 		before(:each) do	
-			@product1 = FactoryGirl.create :product, title: "A plasma TV"
-			@product2 = FactoryGirl.create :product, title: "laptop"
-			@product3 = FactoryGirl.create :product, title: "tablet"
-			@product4 = FactoryGirl.create :product, title: "LCD TV"
+			@product1 = FactoryBot.create :product, title: "A plasma TV"
+			@product2 = FactoryBot.create :product, title: "laptop"
+			@product3 = FactoryBot.create :product, title: "tablet"
+			@product4 = FactoryBot.create :product, title: "LCD TV"
 		end
 
 		context "when a 'TV' title pattern is sent" do	
@@ -41,10 +41,10 @@ describe Product do
 
 	describe "filter by price and sort by update time" do
 		before(:each) do
-			@product1 = FactoryGirl.create :product, price: 100
-			@product2 = FactoryGirl.create :product, price: 50
-			@product3 = FactoryGirl.create :product, price: 110
-			@product4 = FactoryGirl.create :product, price: 90
+			@product1 = FactoryBot.create :product, price: 100
+			@product2 = FactoryBot.create :product, price: 50
+			@product3 = FactoryBot.create :product, price: 110
+			@product4 = FactoryBot.create :product, price: 90
 		end
 
 		context ".above_or_equal_to_price" do	
@@ -73,10 +73,10 @@ describe Product do
 	
 	describe ".search" do
 		before(:each) do
-			@product1 = FactoryGirl.create :product, price: 100, title: "Plasma TV"
-			@product2 = FactoryGirl.create :product, price: 50, title: "Videogame console"
-			@product3 = FactoryGirl.create :product, price: 150, title: "MP3"
-			@product4 = FactoryGirl.create :product, price: 99, title: "Laptop"
+			@product1 = FactoryBot.create :product, price: 100, title: "Plasma TV"
+			@product2 = FactoryBot.create :product, price: 50, title: "Videogame console"
+			@product3 = FactoryBot.create :product, price: 150, title: "MP3"
+			@product4 = FactoryBot.create :product, price: 99, title: "Laptop"
 		end
 
 		context "when title 'videogame' and min price '100' are set" do

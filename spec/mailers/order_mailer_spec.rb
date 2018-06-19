@@ -5,7 +5,7 @@ RSpec.describe OrderMailer, type: :mailer do
 
 	describe ".send_confirmation" do
 		before(:all) do
-			@order = FactoryGirl.create :order
+			@order = FactoryBot.create :order
 			@user = @order.user
 			@order_mailer = OrderMailer.send_confirmation(@order)
 		end

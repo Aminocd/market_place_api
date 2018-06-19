@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe User do
-	before { @user = FactoryGirl.build(:user)}
+	before { @user = FactoryBot.build(:user)}
 	
 	subject { @user }
 
@@ -29,7 +29,7 @@ describe User do
 		end
 
 		it "generates another token when one already has been taken" do
-			existing_user = FactoryGirl.create(:user, auth_token: "auniquetoken123")
+			existing_user = FactoryBot.create(:user, auth_token: "auniquetoken123")
 			@user.generate_authentication_token!
 			expect(@user.auth_token).not_to eql existing_user.auth_token
 		end
@@ -43,7 +43,7 @@ describe User do
 	describe "#products associaton" do
 		before do
 			@user.save
-			3.times { FactoryGirl.create :product, user: @user }
+			3.times { FactoryBot.create :product, user: @user }
 		end
 	
 		it "destroys the associated products on self destruct" do

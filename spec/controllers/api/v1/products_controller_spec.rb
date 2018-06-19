@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe Api::V1::ProductsController, type: :controller do
 	describe "GET #show" do
 		before(:each) do
-			@product = FactoryGirl.create :product
+			@product = FactoryBot.create :product
 			get :show, id: @product.id
 		end
 
@@ -16,7 +16,7 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 			user_response = json_response[:included][0][:attributes]
 			expect(user_response[:email]).to eql @product.user.email
 		end
-	
+
 		it { should respond_with 200 }
 	end
 
@@ -26,10 +26,10 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 		end
 
 		# context: when is not receiving any product_ids paramater
-		context "when is not receiving any product_ids parameter" do		
-			before(:each) do	
+		context "when is not receiving any product_ids parameter" do
+			before(:each) do
 				@products_array = []
-				@count.times { @products_array.push(FactoryGirl.create :product) }
+				@count.times { @products_array.push(FactoryBot.create :product) }
 				get :index
 			end
 
@@ -40,8 +40,8 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 
 			it "returns the product's relationship to the user object" do
 				products_response = json_response[:data]
-				products_response.each do |product_response| 	
-					expect(product_response[:relationships][:user][:data][:id]).to be_present 
+				products_response.each do |product_response|
+					expect(product_response[:relationships][:user][:data][:id]).to be_present
 				end
 			end
 
@@ -57,24 +57,24 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 
 			# for pagination
 			it_behaves_like "pagination list"
-		
+
 			it { should respond_with 200}
 		end
 
-		context "when product_ids parameter is sent" do		
+		context "when product_ids parameter is sent" do
 			before(:each) do
-				@user = FactoryGirl.create :user
-				@count.times { FactoryGirl.create :product, user: @user }
+				@user = FactoryBot.create :user
+				@count.times { FactoryBot.create :product, user: @user }
 				get :index, product_ids: @user.product_ids
 			end
-			
+
 			it "returns just the products that belong to the user" do
 				users_response = json_response[:included]
 				users_response.each do |user_response|
 					expect(user_response[:attributes][:email]).to eql @user.email
 				end
 			end
-			
+
 		end
 
 	end
@@ -82,11 +82,11 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 	describe "POST #create" do
 		context "when is successfully created" do
 			before(:each) do
-				user = FactoryGirl.create :user
-				@product_attributes = FactoryGirl.attributes_for :product	
+				user = FactoryBot.create :user
+				@product_attributes = FactoryBot.attributes_for :product
 				api_authorization_header user.auth_token
 				post :create, { user_id: user.id, product: @product_attributes }
-			end	
+			end
 
 			it "renders the json representation for the product record just created" do
 				product_response = json_response[:data][:attributes]
@@ -94,11 +94,11 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 			end
 
 			it { should respond_with 201 }
-		end		
+		end
 
 		context "when is not created" do
 			before(:each) do
-				user = FactoryGirl.create :user
+				user = FactoryBot.create :user
 				@invalid_product_attributes = { title: "Smart TV", price: "twelve dollars" }
 				api_authorization_header user.auth_token
 				post :create, { user_id: user.id, product: @invalid_product_attributes }
@@ -114,20 +114,20 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 				expect(product_response[:errors][:price]).to include "is not a number"
 			end
 
-			it { should respond_with 422 }				
+			it { should respond_with 422 }
 		end
 	end
 
 	describe "PUT/PATCH #update" do
-		before(:each) do	
-			@user = FactoryGirl.create :user
-			@product = FactoryGirl.create :product, user: @user
+		before(:each) do
+			@user = FactoryBot.create :user
+			@product = FactoryBot.create :product, user: @user
 			api_authorization_header @user.auth_token
 		end
 
 		context "when is successfully updated" do
 			before(:each) do
-				patch :update, { user_id: @user.id, id: @product.id, product: { title: "An expensive TV" } }	
+				patch :update, { user_id: @user.id, id: @product.id, product: { title: "An expensive TV" } }
 			end
 
 			it "renders the json representation of the updated user" do
@@ -158,13 +158,13 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 	end
 
 	context "DELETE #destroy" do
-		before(:each) do	
-			@user = FactoryGirl.create :user
-			@product = FactoryGirl.create :product, user: @user
+		before(:each) do
+			@user = FactoryBot.create :user
+			@product = FactoryBot.create :product, user: @user
 			api_authorization_header @user.auth_token
 			delete :destroy, { user_id: @user.id, id: @product.id }
 		end
-		
+
 		it { should respond_with 204 }
 	end
 end

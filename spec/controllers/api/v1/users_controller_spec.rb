@@ -4,7 +4,7 @@ describe Api::V1::UsersController do
 
   describe "GET #show" do
     before(:each) do
-      @user = FactoryGirl.create :user
+      @user = FactoryBot.create :user
       get :show, id: @user.id
     end
 
@@ -24,7 +24,7 @@ describe Api::V1::UsersController do
   describe "POST #create" do
 		context "when is successfully created" do
 			before(:each) do
-			@user_attributes = FactoryGirl.attributes_for :user
+			@user_attributes = FactoryBot.attributes_for :user
 			post :create, { user: @user_attributes }
 			end
 
@@ -59,7 +59,7 @@ describe Api::V1::UsersController do
 
   describe "PUT/PATCH #update" do
     before(:each) do
-			@user = FactoryGirl.create :user
+			@user = FactoryBot.create :user
 			api_authorization_header(@user.auth_token)
 		end
     context "when is successfully updated" do
@@ -96,7 +96,7 @@ describe Api::V1::UsersController do
 
   describe "DELETE #destroy" do
 		before(:each) do
-			@user = FactoryGirl.create :user
+			@user = FactoryBot.create :user
 			api_authorization_header(@user.auth_token) 
 			delete :destroy, { id: @user.id}
 		end
