@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Placement, type: :model do
-	let(:placement) { FactoryGirl.build :placement }
+	let(:placement) { FactoryBot.build :placement }
 	subject { placement }
 
  	it { should respond_to :order_id }

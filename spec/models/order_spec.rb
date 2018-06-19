@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Order, type: :model do
-	let(:order) { FactoryGirl.build :order }
+	let(:order) { FactoryBot.build :order }
 	subject { order }
 
 	it { should respond_to(:total) } 
@@ -21,13 +21,13 @@ RSpec.describe Order, type: :model do
 
 	describe "valid?" do
 		before(:each) do	
-			product1 = FactoryGirl.create :product, price: 85, quantity: 5
-			product2 = FactoryGirl.create :product, price: 100, quantity: 10
+			product1 = FactoryBot.create :product, price: 85, quantity: 5
+			product2 = FactoryBot.create :product, price: 100, quantity: 10
 
-			placement1 = FactoryGirl.create :placement, product: product1, quantity: 3
-			placement2 = FactoryGirl.create :placement, product: product2, quantity: 15
+			placement1 = FactoryBot.create :placement, product: product1, quantity: 3
+			placement2 = FactoryBot.create :placement, product: product2, quantity: 15
 
-			@order = FactoryGirl.create :order
+			@order = FactoryBot.create :order
 
 			@order.placements << placement1
 			@order.placements << placement2

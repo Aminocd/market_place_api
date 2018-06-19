@@ -5,7 +5,7 @@ describe Api::V1::SessionsController do
   describe "POST #create" do
 
    before(:each) do
-    @user = FactoryGirl.create :user
+    @user = FactoryBot.create :user
    end
 
     context "when the credentials are correct" do
@@ -43,7 +43,7 @@ describe Api::V1::SessionsController do
   describe "DELETE #destroy" do
 
 	before(:each) do 
-	  @user = FactoryGirl.create :user
+	  @user = FactoryBot.create :user
 	  sign_in @user #, store: false
       delete :destroy, id: @user.auth_token
 	end

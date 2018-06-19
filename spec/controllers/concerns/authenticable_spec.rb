@@ -10,7 +10,7 @@ describe Authenticable do
 
 	describe "#current_user" do
 		before do
-			@user = FactoryGirl.create :user
+			@user = FactoryBot.create :user
 			request.headers['Authorization'] = @user.auth_token
 			authentication.stub(:request).and_return(request)
 		end
@@ -21,7 +21,7 @@ describe Authenticable do
 
 	describe "#authenticate_with_token!" do
 		before do
-			@user = FactoryGirl.create :user
+			@user = FactoryBot.create :user
 =begin
 			authentication.current_user
 =end
@@ -42,7 +42,7 @@ describe Authenticable do
 	describe "#user_signed_in?" do
 		context "when there is a user on 'session'" do
 			before do
-				@user = FactoryGirl.create :user
+				@user = FactoryBot.create :user
 				authentication.stub(:current_user).and_return(@user)
 			end
 
@@ -51,7 +51,7 @@ describe Authenticable do
 	
 		context "when there is no user 'session'" do
 			before do
-				@user = FactoryGirl.create :user
+				@user = FactoryBot.create :user
 				authentication.stub(:current_user).and_return(nil)
 			end
 
