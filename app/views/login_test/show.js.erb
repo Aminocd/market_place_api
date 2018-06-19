@@ -1,0 +1,8 @@
+<% case @page_type %>
+  <% when "login" %>
+    $("#signup-container").empty().slideUp();
+    $("#login-container").html("<%= escape_javascript render(:partial => 'login_test/devise/sessions/new', :locals => {resource: resource, resource_name: resource_name}) %>")
+  <% when "sign_up" %>
+    $("#signup-container").html("<%= escape_javascript render(:partial => 'login_test/devise/registrations/new', :locals => {resource: resource, resource_name: resource_name})%>")
+    $("#login-container").empty().slideDown();
+<% end %>

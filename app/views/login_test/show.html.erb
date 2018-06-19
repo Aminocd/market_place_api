@@ -1,0 +1,17 @@
+<div class='container'>
+  <% case @page_type %>
+   <% when 'login' %>
+     <div id='login-container'>
+       <%=render 'login_test/devise/sessions/new'%>
+     </div>
+     <div id='signup-container'></div>
+    <% when "sign_up" %>
+      <div id='login-container'></div>
+      <div id='signup-container'>
+        <%= render 'login_test/devise/registrations/new' %>
+      </div>
+  <% end %>
+  <div id='social-container'>
+    <%= render "login_test/devise/shared/links" %>
+  </div>
+</div>
