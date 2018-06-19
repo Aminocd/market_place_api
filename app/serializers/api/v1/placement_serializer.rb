@@ -1,3 +1,3 @@
-class PlacementSerializer < ActiveModel::Serializer
+class Api::V1::PlacementSerializer < ActiveModel::Serializer
   attributes :id
 end

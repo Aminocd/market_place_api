@@ -4,10 +4,10 @@ RSpec.describe Order, type: :model do
 	let(:order) { FactoryBot.build :order }
 	subject { order }
 
-	it { should respond_to(:total) } 
+	it { should respond_to(:total) }
 	it { should respond_to(:user_id) }
-	
-	it { should validate_presence_of :user_id }
+
+	it { should validate_presence_of :user }
 #	it { should validate_presence_of :total }
 #	it { should validate_numericality_of(:total).is_greater_than_or_equal_to(0) } # can't do the last two validations because the set_total! method causes them to fail
 
@@ -20,7 +20,7 @@ RSpec.describe Order, type: :model do
 	end
 
 	describe "valid?" do
-		before(:each) do	
+		before(:each) do
 			product1 = FactoryBot.create :product, price: 85, quantity: 5
 			product2 = FactoryBot.create :product, price: 100, quantity: 10
 
@@ -35,6 +35,6 @@ RSpec.describe Order, type: :model do
 
 		it "should not be valid" do
 			expect(@order).to_not be_valid
-		end	
+		end
 	end
 end

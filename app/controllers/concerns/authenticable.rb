@@ -1,5 +1,5 @@
 module Authenticable
-
+	#Ben 6/19/2018 You dont need thses any more since they were overrides for devise methods for another token strategy the new JWT startegy ive included ensures you dont have to worry about overriding these.
 	# Devise methods overwrites
 	def current_user
 		@current_user ||= User.find_by(auth_token: request.headers['Authorization'])
@@ -7,7 +7,7 @@ module Authenticable
 
 	def authenticate_with_token!
 		render json: { "errors" => "Not authenticated" },
-										 status: :unauthorized unless user_signed_in? 
+										 status: :unauthorized unless user_signed_in?
 	end
 
 	def authorize_with_token!(key)

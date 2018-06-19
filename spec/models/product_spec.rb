@@ -14,27 +14,27 @@ describe Product do
 	it { should validate_presence_of :title }
 	it { should validate_presence_of :price }
 	it { should validate_numericality_of(:price).is_greater_than_or_equal_to(0) }
-	it { should validate_presence_of :user_id }
+	it { should validate_presence_of :user }
 
 	it { should belong_to :user }
 	it { should have_many(:placements) }
 	it { should have_many(:orders).through(:placements) }
 
 	describe ".filter_by_title" do
-		before(:each) do	
+		before(:each) do
 			@product1 = FactoryBot.create :product, title: "A plasma TV"
 			@product2 = FactoryBot.create :product, title: "laptop"
 			@product3 = FactoryBot.create :product, title: "tablet"
 			@product4 = FactoryBot.create :product, title: "LCD TV"
 		end
 
-		context "when a 'TV' title pattern is sent" do	
+		context "when a 'TV' title pattern is sent" do
 			it "returns 2 items" do
 				expect(Product.filter_by_title("TV").length).to eq 2
 			end
 
 			it "returns an array of items pattern @product1 and @product2" do
-				expect(Product.filter_by_title("TV").sort).to match_array([@product1, @product4]) 
+				expect(Product.filter_by_title("TV").sort).to match_array([@product1, @product4])
 			end
 		end
 	end
@@ -47,16 +47,16 @@ describe Product do
 			@product4 = FactoryBot.create :product, price: 90
 		end
 
-		context ".above_or_equal_to_price" do	
+		context ".above_or_equal_to_price" do
 			it "returns products with a price greater than or equal to the value given as an argument" do
 				expect(Product.above_or_equal_to_price(100).sort).to match_array([@product1, @product3])
 			end
 		end
 
 		context ".below_or_equal_to_price" do
-			it "returns products with a price less than or equal to the value given as an argument" do	
+			it "returns products with a price less than or equal to the value given as an argument" do
 				expect(Product.below_or_equal_to_price(99).sort).to match_array([@product2, @product4])
-			end	
+			end
 		end
 
 		context "sorted by last update" do
@@ -70,7 +70,7 @@ describe Product do
 			end
 		end
 	end
-	
+
 	describe ".search" do
 		before(:each) do
 			@product1 = FactoryBot.create :product, price: 100, title: "Plasma TV"
@@ -81,9 +81,9 @@ describe Product do
 
 		context "when title 'videogame' and min price '100' are set" do
 			it "returns an empty array" do
-				search_hash = { keyword: "videogame", min_price: 100}	
+				search_hash = { keyword: "videogame", min_price: 100}
 				expect(Product.search(search_hash)).to be_empty
-			end	
+			end
 		end
 
 		context "when title 'tv', max price '150' and min price '50' are set" do
@@ -108,4 +108,3 @@ describe Product do
 		end
 	end
 end
-

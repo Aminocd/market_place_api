@@ -1,8 +1,7 @@
-class Api::V1::ProductsController < ApplicationController
+class Api::V1::ProductsController < APIController
 	before_action only: [:create, :update] do
-		authorize_with_token!(:user_id)
+		authenticate_user!
 	end
-	respond_to :json
 
 	def show
 		respond_with Product.find(params[:id]), include: :user, fields: { user: [:email, :created_at, :updated_at]}
@@ -24,7 +23,7 @@ class Api::V1::ProductsController < ApplicationController
 
 	def update
 		product = current_user.products.find(params[:id])
-		if (product.update(product_params)) 
+		if (product.update(product_params))
 			render json: product, status: 200, location: [:api, product]
 		else
 			render json: { errors: product.errors}, status: 422

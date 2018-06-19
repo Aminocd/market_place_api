@@ -4,7 +4,7 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 	describe "GET #show" do
 		before(:each) do
 			@product = FactoryBot.create :product
-			get :show, id: @product.id
+			get :show, params: {id: @product.id}
 		end
 
 		it "returns the information about a reporter on a hash" do
@@ -65,7 +65,7 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 			before(:each) do
 				@user = FactoryBot.create :user
 				@count.times { FactoryBot.create :product, user: @user }
-				get :index, product_ids: @user.product_ids
+				get :index, params: {product_ids: @user.product_ids}
 			end
 
 			it "returns just the products that belong to the user" do
@@ -84,8 +84,8 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 			before(:each) do
 				user = FactoryBot.create :user
 				@product_attributes = FactoryBot.attributes_for :product
-				api_authorization_header user.auth_token
-				post :create, { user_id: user.id, product: @product_attributes }
+				api_authorization_header user
+				post :create, params: { user_id: user.id, product: @product_attributes }
 			end
 
 			it "renders the json representation for the product record just created" do
@@ -100,8 +100,8 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 			before(:each) do
 				user = FactoryBot.create :user
 				@invalid_product_attributes = { title: "Smart TV", price: "twelve dollars" }
-				api_authorization_header user.auth_token
-				post :create, { user_id: user.id, product: @invalid_product_attributes }
+				api_authorization_header user
+				post :create, params: { user_id: user.id, product: @invalid_product_attributes }
 			end
 
 			it "renders an errors json" do
@@ -122,12 +122,12 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 		before(:each) do
 			@user = FactoryBot.create :user
 			@product = FactoryBot.create :product, user: @user
-			api_authorization_header @user.auth_token
+			api_authorization_header @user
 		end
 
 		context "when is successfully updated" do
 			before(:each) do
-				patch :update, { user_id: @user.id, id: @product.id, product: { title: "An expensive TV" } }
+				patch :update, params: { user_id: @user.id, id: @product.id, product: { title: "An expensive TV" } }
 			end
 
 			it "renders the json representation of the updated user" do
@@ -140,7 +140,7 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 
 		context "when is not updated" do
 			before(:each) do
-				patch :update, { user_id: @user.id, id: @product.id, product: { price: "twelve dollars" } }
+				patch :update, params: { user_id: @user.id, id: @product.id, product: { price: "twelve dollars" } }
 			end
 
 			it "renders an errors json" do
@@ -161,8 +161,8 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 		before(:each) do
 			@user = FactoryBot.create :user
 			@product = FactoryBot.create :product, user: @user
-			api_authorization_header @user.auth_token
-			delete :destroy, { user_id: @user.id, id: @product.id }
+			api_authorization_header @user
+			delete :destroy, params: { user_id: @user.id, id: @product.id }
 		end
 
 		it { should respond_with 204 }
