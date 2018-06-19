@@ -32,7 +32,7 @@ gem 'turbolinks', '~> 5'
 # gem 'capistrano-rails', group: :development
 # Ben 6/12/2018 Commented this out for now im going to use postgresql
 # group :development do
-# 	gem 'sqlite3' #Ben 6/12/2018 Already declared this at the top 
+# 	gem 'sqlite3' #Ben 6/12/2018 Already declared this at the top
 # end
 
 # group :development, :test do
@@ -78,7 +78,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "devise"
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
-gem 'devise-jwt' #Ben 6/12/2018 Will use this to generate tokens
+gem 'devise-jwt', '~> 0.5.6' #Ben 6/12/2018 Will use this to generate tokens
 gem 'simple_command' #Ben 6/12/2018 Makes life easier since this is a service object will use to authorize api requests
 gem 'sabisu_rails', github: "jvrsgsty/sabisu-rails"
 gem 'compass-rails', '~> 3.0.2'
