@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, inverse_of: :orders
 
   validates :total, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
@@ -13,12 +13,12 @@ class Order < ApplicationRecord
 
   def set_total!
 	self.total = 0
-	placements.each do |placement| 
-	  self.total += placement.product.price * placement.quantity 
-	end	
+	placements.each do |placement|
+	  self.total += placement.product.price * placement.quantity
+	end
   end
 
-  def build_placements_with_product_ids_and_quantities(product_ids_and_quantities) 
+  def build_placements_with_product_ids_and_quantities(product_ids_and_quantities)
 	product_ids_and_quantities.each do |product_id_and_quantity|
 		id, quantity = product_id_and_quantity # [2, 4]
 		self.placements.build(product_id: id, quantity: quantity)
