@@ -5,6 +5,6 @@ class Placement < ApplicationRecord
   after_create :decrement_product_quantity!
 
   def decrement_product_quantity!
-	self.product.decrement!(:quantity, quantity)
+	   self.product.decrement!(:quantity, quantity)
   end
 end

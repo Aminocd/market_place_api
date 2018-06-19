@@ -1,11 +1,13 @@
 class Product < ApplicationRecord
   belongs_to :user, inverse_of: :products
 
-  validates :title, :user_id, presence: true
+  validates :title, :user, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0 }, presence: true
 
-  has_many :placements
+  has_many :placements, inverse_of: :product
   has_many :orders, through: :placements
+
+
 
   scope :filter_by_title, lambda { |keyword|
     where("lower(title) LIKE ?", "%#{keyword.downcase}%")
@@ -16,21 +18,21 @@ class Product < ApplicationRecord
   }
 
   scope :below_or_equal_to_price, lambda { |price|
-	where("price <= ?", price)
+	   where("price <= ?", price)
   }
 
   scope :recent, -> {
-	order(:updated_at)
+	   order(:updated_at)
   }
 
   def self.search(params = {})
-	products = params[:product_ids].present? ? Product.where(id: params[:product_ids]) : Product.all
+  	products = params[:product_ids].present? ? Product.where(id: params[:product_ids]) : Product.all
 
-	products = products.filter_by_title(params[:keyword]) if params[:keyword]
-    products = products.above_or_equal_to_price(params[:min_price].to_f) if params[:min_price]
-	products = products.below_or_equal_to_price(params[:max_price].to_f) if params[:max_price]
-	products = products.recent(params[:recent]) if params[:recent].present?
+  	products = products.filter_by_title(params[:keyword]) if params[:keyword]
+      products = products.above_or_equal_to_price(params[:min_price].to_f) if params[:min_price]
+  	products = products.below_or_equal_to_price(params[:max_price].to_f) if params[:max_price]
+  	products = products.recent(params[:recent]) if params[:recent].present?
 
-	products
+  	products
   end
 end

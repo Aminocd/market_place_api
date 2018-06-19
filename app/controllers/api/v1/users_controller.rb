@@ -1,13 +1,11 @@
-class Api::V1::UsersController < ApplicationController
+class Api::V1::UsersController < APIController
 	# Prevent CSRF attacks by raising an exception.
 	# For APIs, you may want to use :null_session instead
-	protect_from_forgery with: :null_session
+	# protect_from_forgery with: :null_session #Ben 6/19/2018 Dont need this set here since it is inhereitgn from the APIController which declares protect from forgery there.
 
 	before_action only: [:update, :destroy] do
-		authorize_with_token!(:id)
+		authenticate_user!
 	end
-	
-	respond_to :json
 
 	def show
 		respond_with User.find(params[:id])
@@ -24,7 +22,7 @@ class Api::V1::UsersController < ApplicationController
 
 	def update
 		user = current_user
-		
+
 		if user.update(user_params)
 			render json: user, status: 200, location: [:api, user]
 		else

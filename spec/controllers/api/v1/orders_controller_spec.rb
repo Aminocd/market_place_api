@@ -4,9 +4,9 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
 	describe "GET #index" do
 		before(:each) do
 			current_user = FactoryBot.create :user
-			api_authorization_header current_user.auth_token
+			api_authorization_header current_user
 			4.times { FactoryBot.create :order, user: current_user }
-			get :index, user_id: current_user.id
+			get :index, params: {user_id: current_user.id}
 		end
 
 		it "returns 4 order records from the user" do
@@ -23,10 +23,10 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
 	describe "GET #show" do
 		before(:each) do
 			current_user = FactoryBot.create :user
-			api_authorization_header current_user.auth_token
+			api_authorization_header current_user
 			@product = FactoryBot.create :product
 			@order = FactoryBot.create :order, user: current_user, product_ids: [@product.id]
-			get :show, user_id: current_user.id, id: @order.id
+			get :show, params: {user_id: current_user.id, id: @order.id}
 		end
 
 		it "it returns the user order record matching the id" do
@@ -50,12 +50,12 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
 	describe "POST #create" do
 		before(:each) do
 			@current_user = FactoryBot.create :user
-			api_authorization_header @current_user.auth_token
+			api_authorization_header @current_user
 
 			product1 = FactoryBot.create :product
 			product2 = FactoryBot.create :product
 			order_params = { product_ids_and_quantities: [[product1.id, 2], [product2.id, 3]]}
-			post :create, user_id: @current_user.id, order: order_params
+			post :create, params: { user_id: @current_user.id, order: order_params}
 		end
 
 		it "returns user order just created" do
