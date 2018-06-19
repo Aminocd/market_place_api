@@ -82,7 +82,7 @@ Devise.setup do |config|
   # Notice that if you are skipping storage for all authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
   # passing skip: :sessions to `devise_for` in your config/routes.rb
-  config.skip_session_storage = [:http_auth]
+  config.skip_session_storage = [:http_auth, :params_auth]
 
   # By default, Devise cleans up the CSRF token on authentication to
   # avoid CSRF token fixation attacks. This means that, when using AJAX
@@ -239,7 +239,7 @@ Devise.setup do |config|
   # should add them to the navigational formats lists.
   #
   # The "*/*" below is required to match Internet Explorer requests.
-  # config.navigational_formats = ['*/*', :html]
+  config.navigational_formats = []
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
@@ -253,10 +253,6 @@ Devise.setup do |config|
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
   #
-  # config.warden do |manager|
-  #   manager.intercept_401 = false
-  #   manager.default_strategies(scope: :user).unshift :some_external_strategy
-  # end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
@@ -268,7 +264,29 @@ Devise.setup do |config|
   # The router that invoked `devise_for`, in the example above, would be:
   # config.router_name = :my_engine
   #
+  config.warden do |manager|
+    require 'api_unauthorized'
+    manager.failure_app = ApiUnauthorized
+  end
+  config.jwt do |jwt| #Ben 6/16/2018 This configuration is needed for the devise-jwt gem
+    jwt.secret = ENV.fetch('DEVISE_JWT_SECRET_KEY', Rails.application.secrets.secret_key_base)
+    jwt.request_formats = {user: [:json]}
+    jwt.dispatch_requests = [
+      ['POST', %r{^/login}],
+      ['POST', %r{^/signup}],
+      ['GET', %r{^/auth/facebook/callback}],
+      ['GET', %r{^/auth/google_oauth2/callback}],
+    ]
+    jwt.revocation_requests = [
+      ['DELETE', %r{^/logout$}]
+    ]
+    jwt.expiration_time = 1.day.to_i
+  end
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
-  # config.omniauth_path_prefix = '/my_engine/users/auth'
+  config.omniauth :facebook, ENV['FACEBOOK_ID'], ENV['FACEBOOK_SECRET'], scope: 'email', info_fields: 'email,name', client_options: {
+      site: 'https://graph.facebook.com/v3.0',
+      authorize_url: "https://www.facebook.com/v3.0/dialog/oauth"
+    }, token_params: { parse: :json }
+  config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET']
 end
