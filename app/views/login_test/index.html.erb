@@ -1,0 +1,6 @@
+<div class='container'>
+  <h4> You are already logged in! </h4>
+  <p>YOu should already have a token at this point....</p>
+  <p> Please Log Out to get a new one </p>
+  <%= link_to('Logout', destroy_user_session_path, method: :delete, remote: true) %>
+</div>
