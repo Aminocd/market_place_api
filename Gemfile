@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
-
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.5' #Ben 6/12/2018 bumped version to get more features including yarn support which allows you to use node js modules so you can seamlessly integrate a separate react js app
@@ -82,7 +85,7 @@ gem 'devise-jwt', '~> 0.5.6' #Ben 6/12/2018 Will use this to generate tokens
 gem 'simple_command' #Ben 6/12/2018 Makes life easier since this is a service object will use to authorize api requests
 gem 'sabisu_rails', github: "jvrsgsty/sabisu-rails"
 gem 'compass-rails', '~> 3.0.2'
-gem 'furatto', git: 'git@github.com:IcaliaLabs/furatto-rails.git'
+gem 'furatto', github: 'IcaliaLabs/furatto-rails'
 gem 'font-awesome-rails'
 gem 'simple_form'
 # gem 'railties' Ben 6/12/2018 Not needed since this comes with rails by default
