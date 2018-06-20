@@ -1,18 +1,18 @@
 GIT
-  remote: git://github.com/jvrsgsty/sabisu-rails.git
+  remote: https://github.com/IcaliaLabs/furatto-rails.git
+  revision: e0a422c6ab323aef7b088e53d63cdc084db20df6
+  specs:
+    furatto (1.5.0)
+      compass-rails (>= 3.0.2)
+
+GIT
+  remote: https://github.com/jvrsgsty/sabisu-rails.git
   revision: 7ee1de1a2616a3aabe1821e01a253f5deb5e2e2c
   specs:
     sabisu_rails (0.0.2.beta)
       actionpack (~> 5.0)
       activemodel (~> 5.0)
       httparty (~> 0.13)
-
-GIT
-  remote: git@github.com:IcaliaLabs/furatto-rails.git
-  revision: e0a422c6ab323aef7b088e53d63cdc084db20df6
-  specs:
-    furatto (1.5.0)
-      compass-rails (>= 3.0.2)
 
 GEM
   remote: https://rubygems.org/
