@@ -1,7 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_action :set_omniauth_user, :only => [:facebook, :google_oauth2]
-  respond_to :json
-  include AuthenticationHelper
   def all
     if @user.persisted?
       sign_in('user', @user)

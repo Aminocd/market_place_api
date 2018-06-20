@@ -242,7 +242,7 @@ Devise.setup do |config|
   config.navigational_formats = []
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = :delete
+  config.sign_out_via = [:get, :delete]
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
@@ -272,15 +272,17 @@ Devise.setup do |config|
     jwt.secret = ENV.fetch('DEVISE_JWT_SECRET_KEY', Rails.application.secrets.secret_key_base)
     jwt.request_formats = {user: [:json]}
     jwt.dispatch_requests = [
-      ['POST', %r{^/login}],
-      ['POST', %r{^/signup}],
-      ['GET', %r{^/auth/facebook/callback}],
-      ['GET', %r{^/auth/google_oauth2/callback}],
+      ['POST', %r{^/login$}],
+      ['POST', %r{^/signup$}],
+      ['GET', %r{^/auth/facebook/callback$}],
+      ['GET', %r{^/auth/google_oauth2/callback%}],
     ]
     jwt.revocation_requests = [
-      ['DELETE', %r{^/logout$}]
+      ['DELETE', %r{^/logout$}],
+      ['GET', %r{^/logout$}]
     ]
     jwt.expiration_time = 1.day.to_i
+    jwt.aud_header = ENV.fetch("MARKET_PLACE_NAMED_VERSION") {"MKPL-V1-AUD"} #Ben 6/19/2018 You can customize the name of the aud header which will identifiy users by device and prevent them from being signed out on all devices if they are signed out on 1
   end
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
