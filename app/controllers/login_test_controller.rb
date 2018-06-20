@@ -8,7 +8,6 @@ class LoginTestController < ApplicationController
 
 
   def show
-    Rails.logger.info current_user.awesome_inspect
     if params[:page_type].blank?
       @page_type = "login"
     else

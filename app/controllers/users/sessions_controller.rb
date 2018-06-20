@@ -2,7 +2,7 @@ class Users::SessionsController < Devise::SessionsController
   def create
     resource = warden.authenticate!(:scope => :user)
     unless resource.errors.any?
-      sign_in(resource_name, resource)
+      sign_in(:user, resource, bypass: true)
       render_resource_or_jwt(resource, set_jwt(request.env['warden-jwt_auth.token']))
     else
       validation_error(resource)
