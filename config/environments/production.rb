@@ -45,6 +45,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  # Amin 06/21/2018 - adding force_ssl as part of ssl trouble-shooting
   # config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
