@@ -1,5 +1,5 @@
 # Use this module to configure the sabisu available options
-
+=begin
 SabisuRails.setup do |config|
 
   # Base uri for posting the
@@ -37,5 +37,5 @@ SabisuRails.setup do |config|
 
   # mattr_accessor :authentication_password
   # @@authentication_password = "sekret"
-
 end
+=end

@@ -83,7 +83,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'devise-jwt', '~> 0.5.6' #Ben 6/12/2018 Will use this to generate tokens
 gem 'simple_command' #Ben 6/12/2018 Makes life easier since this is a service object will use to authorize api requests
-gem 'sabisu_rails', github: "jvrsgsty/sabisu-rails"
+#gem 'sabisu_rails', github: "jvrsgsty/sabisu-rails"
 gem 'compass-rails', '~> 3.0.2'
 gem 'furatto', github: 'IcaliaLabs/furatto-rails'
 gem 'font-awesome-rails'
