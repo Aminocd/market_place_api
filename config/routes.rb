@@ -1,7 +1,7 @@
 require 'api_constraints'
 
 MarketPlaceApi::Application.routes.draw do
-  mount SabisuRails::Engine => "/sabisu_rails"
+#  mount SabisuRails::Engine => "/sabisu_rails"
   get 'login_test', to: "login_test#show"
   get 'logged_in_test', to: "login_test#index"
   devise_for :users,
