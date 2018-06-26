@@ -5,15 +5,6 @@ GIT
     furatto (1.5.0)
       compass-rails (>= 3.0.2)
 
-GIT
-  remote: https://github.com/jvrsgsty/sabisu-rails.git
-  revision: 7ee1de1a2616a3aabe1821e01a253f5deb5e2e2c
-  specs:
-    sabisu_rails (0.0.2.beta)
-      actionpack (~> 5.0)
-      activemodel (~> 5.0)
-      httparty (~> 0.13)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -142,8 +133,6 @@ GEM
       activesupport (>= 4.2.0)
     hashie (3.5.7)
     htmlentities (4.3.4)
-    httparty (0.16.2)
-      multi_xml (>= 0.5.2)
     httpauth (0.2.1)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
@@ -176,7 +165,6 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.13.1)
-    multi_xml (0.6.0)
     multipart-post (2.0.0)
     nio4r (2.3.1)
     nokogiri (1.8.3)
@@ -328,7 +316,6 @@ DEPENDENCIES
   rack-cors
   rails (~> 5.1.5)
   rspec-rails (~> 3.7)
-  sabisu_rails!
   sass-rails (~> 5)
   shoulda-matchers
   simple_command
