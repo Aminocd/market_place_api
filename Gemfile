@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.5' #Ben 6/12/2018 bumped version to get more features including yarn support which allows you to use node js modules so you can seamlessly integrate a separate react js app
+gem 'rails', '5.1.5' #Ben 6/12/2018 bumped version to get more features including yarn support which allows you to use node js modules so you can seamlessly integrate a separate react js app
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
@@ -79,9 +79,11 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "devise"
-gem 'omniauth-facebook'
+gem 'oauth2', github: 'oauth-xx/oauth2'
+gem 'omniauth-oauth2', '~> 1.5.0'
+gem 'omniauth-facebook', '~> 5.0.0'
 gem 'omniauth-google-oauth2'
-gem 'devise-jwt', '~> 0.5.6' #Ben 6/12/2018 Will use this to generate tokens
+gem 'devise-jwt', '~> 0.5.7'#Ben 6/12/2018 Will use this to generate tokens
 gem 'simple_command' #Ben 6/12/2018 Makes life easier since this is a service object will use to authorize api requests
 #gem 'sabisu_rails', github: "jvrsgsty/sabisu-rails"
 gem 'compass-rails', '~> 3.0.2'
