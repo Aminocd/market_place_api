@@ -1,4 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  skip_before_action :verify_authenticity_token, if: -> {request.format.json?}
   before_action :set_omniauth_user, :only => [:facebook, :google_oauth2]
   def all
     if @user.persisted?

@@ -1,4 +1,5 @@
 class Users::SessionsController < Devise::SessionsController
+  skip_before_action :verify_authenticity_token, if: -> {request.format.json?}
   def create
     resource = warden.authenticate!(:scope => :user)
     unless resource.errors.any?
