@@ -3,6 +3,7 @@ module Authenticable
 	included do
 		include AuthenticationHelper
 		respond_to :json, if: -> { devise_controller?}
+		skip_before_action :verify_authenticity_token, if: -> {devise_controller? && request.format.json?}
 		prepend_before_action :require_no_authentication, only: [:create], if: -> { devise_controller?}
 		prepend_before_action :configure_sign_up_params, only: [:create], if: -> { devise_controller? }
 	end
