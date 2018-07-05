@@ -32,9 +32,7 @@ class User < ApplicationRecord
  end
 
  def self.from_omniauth(auth)
-    awesome_print auth.info.email
-    awesome_print auth
-    u = User.find_by(email: auth.info.email) if auth.info.email.present?
+    u = User.find_by(email: auth.info.email)
     if u.present?
       u.provider = auth.provider #Ben 6/28/2016 This will raise a validation error if the providers are different preventing users from logging in with multiple providers
       u.uid = auth.uid
@@ -48,6 +46,7 @@ class User < ApplicationRecord
         user.password_confirmation = user.password if user.encrypted_password.blank?
       end
     end
+    awesome_print u
     u
   end
 
