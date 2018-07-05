@@ -16,6 +16,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+/vendor/cache/*
 
 # Ignore Byebug command history file.
 .byebug_history
@@ -23,3 +24,4 @@
 # Ignore passwords
 /config/secrets.yml
 .env
+
