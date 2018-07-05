@@ -38,12 +38,12 @@ class User < ApplicationRecord
       u.uid = auth.uid
       u.save
     else
-      u = create.tap do |user|
+      u = create do |user|
         user.provider = auth.provider
         user.uid = auth.uid
-        user.email = auth.info.email if user.email.blank? #Ben 6/25/2018 this prevents the email from being set again as the email can only be blank on create.
-        user.password = Devise.friendly_token[0,20] if user.encrypted_password.blank?
-        user.password_confirmation = user.password if user.encrypted_password.blank?
+        user.email = auth.info.email
+        user.password = Devise.friendly_token[0,20]
+        user.password_confirmation = user.password
       end
     end
     awesome_print u
