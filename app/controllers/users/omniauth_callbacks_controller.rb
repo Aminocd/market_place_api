@@ -4,7 +4,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def all
     if @user.persisted?
       sign_in('user', @user)
-      render_resource_or_jwt(@user, set_jwt(request.env['warden-jwt_auth.token']))
+      jwt = set_jwt(request.env['warden-jwt_auth.token'])
+      data = Users::JwtTokenSerializer.new(jwt).to_json
+      redirect_to user_session_url(protocol: 'mycurrency', data: data)
     else
       session["devise.provider_data"] = auth_hash
       redirect_to new_user_registration_url
