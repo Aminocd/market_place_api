@@ -6,7 +6,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in('user', @user)
       jwt = set_jwt(request.env['warden-jwt_auth.token'])
       data = Users::JwtTokenSerializer.new(jwt).to_json
-      redirect_to user_session_url(protocol: 'mycurrency', data: data)
+      redirect_to user_session_url(protocol: app_protocol, data: data)
     else
       session["devise.provider_data"] = auth_hash
       redirect_to new_user_registration_url
@@ -26,7 +26,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if auth_command.success?
       @user = auth_command.result
     else
-      validation_error(auth_command)
+      redirect_to user_session_url(protocol: app_protocol, errors: auth_command.errors.to_json)
     end
+  end
+
+  #TODO move to config
+  def app_protocol
+    'mycurrency'
   end
 end
