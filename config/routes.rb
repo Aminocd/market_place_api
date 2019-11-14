@@ -15,6 +15,11 @@ MarketPlaceApi::Application.routes.draw do
                registrations: 'users/registrations',
                omniauth_callbacks: 'users/omniauth_callbacks'
       }
+
+  devise_scope :user do
+    post '/auth2/facebook/callback', to: 'users/omniauth_callbacks#facebook_token'
+  end
+
   # Api definition
   namespace :api, defaults: { format: :json },
                               constraints: { subdomain: 'api' }, path: '/'  do
