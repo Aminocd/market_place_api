@@ -94,3 +94,5 @@ gem 'simple_form'
 # gem 'rack', "~> 2.0"
 gem 'kaminari'
 gem 'delayed_job_active_record'
+
+gem 'koala'
