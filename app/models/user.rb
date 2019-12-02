@@ -46,7 +46,6 @@ class User < ApplicationRecord
         user.password_confirmation = user.password
       end
     end
-    awesome_print u
     u
   end
 
