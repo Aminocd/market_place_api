@@ -60,11 +60,13 @@ group :test do
 end
 
 group :development, :test do
-	gem 'dotenv-rails' #Ben 6/12/2018 Lets you use environment variables in a .env file where you can store api keys instead of hardcoding them in the project
 	gem "factory_bot_rails" #Ben 6/12/2018 factory girl rails is deprecated  added factory bot rails to resolve
 	gem 'ffaker'
 	gem 'byebug', platform: :mri
 end
+	
+# 11/28/2019 - placing outside of :development, :test block so that it also runs on production
+gem 'dotenv-rails' #Ben 6/12/2018 Lets you use environment variables in a .env file where you can store api keys instead of hardcoding them in the project
 
 # group :test do
 # 	gem 'shoulda-matchers'
@@ -96,3 +98,4 @@ gem 'kaminari'
 gem 'delayed_job_active_record'
 
 gem 'koala'
+#
