@@ -277,6 +277,7 @@ Devise.setup do |config|
       ['GET', %r{^/auth/facebook/callback$}],
       ['GET', %r{^/auth/google_oauth2/callback$}],
       ['POST', %r{^/auth/facebook/callback$}],
+      ['POST', %r{^/auth2/facebook/callback$}],
       ['POST', %r{^/auth/google_oauth2/callback$}]
     ]
     jwt.revocation_requests = [
