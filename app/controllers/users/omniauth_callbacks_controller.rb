@@ -4,9 +4,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_action :set_facebook_user, only: %i[facebook_token]
 
   def all
+    Rails.logger.error @user
     if @user.persisted?
       sign_in('user', @user)
       jwt = set_jwt(request.env['warden-jwt_auth.token'])
+      Rails.logger.info request.env['warden-jwt_auth.token']
+      Rails.logger.info @user
+      Rails.logger.info jwt
       if params[:json]
         render_resource_or_jwt(@user, jwt)
       else # TODO: remove after deploy server and client app
@@ -30,6 +34,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def set_omniauth_user
+    Rails.logger.error "DEBUGGING"
+    Rails.logger.error auth_hash
     set_user auth_hash
   end
 
