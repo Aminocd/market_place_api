@@ -9,7 +9,7 @@ gem 'rails', '5.1.5' #Ben 6/12/2018 bumped version to get more features includin
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 4.3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5'
 # Use Uglifier as compressor for JavaScript assets
